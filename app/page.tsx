@@ -17,6 +17,9 @@ export default function Home() {
             <Link href="/business-model-canvas" className="text-foreground hover:text-primary transition">
               Business Model Canvas
             </Link>
+            <Link href="/business-planning" className="text-foreground hover:text-primary transition">
+              Business Planning
+            </Link>
             <Link href="/presentation" className="text-foreground hover:text-primary transition">
               Presentasi Project
             </Link>
