@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card"
 import { ArrowLeft, Users, Zap, Lightbulb, Heart, Target, Rocket, DollarSign, TrendingUp, Layers } from "lucide-react"
 import Link from "next/link"
 import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function BusinessModelCanvas() {
   const bmc = {
@@ -256,22 +257,42 @@ export default function BusinessModelCanvas() {
       {/* Summary Section */}
       <section className="bg-secondary/30 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-foreground mb-8">Ringkasan Strategi Bisnis</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <h2 className="text-3xl font-bold text-foreground mb-8">Ringkasan Strategi Bisnis Brandly</h2>
+          <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Proposisi Nilai Utama</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-4">🎯 Tim & Sumber Daya</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Brandly menawarkan solusi website profesional dan branding yang terjangkau untuk UMKM, Profesional,
-                Freelancer, dan Startup. Dengan kombinasi desain modern, pengembangan berkualitas, dan dukungan
-                berkelanjutan, kami membantu bisnis Anda go-digital dengan percaya diri.
+                Brandly dijalankan oleh 4 orang profesional berpengalaman: UI/UX Designer, Graphic Designer, Full-Stack Developer, dan Project Manager. Kombinasi keahlian ini memastikan delivery berkualitas tinggi dengan koordinasi yang efisien.
               </p>
             </Card>
             <Card className="p-8">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Model Pendapatan</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-4">💰 Model Bisnis</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Kami menggunakan model pendapatan hybrid: biaya proyek one-time untuk pembuatan website dan branding,
-                ditambah biaya berlangganan bulanan untuk maintenance dan support, serta jasa tambahan untuk layanan
-                premium seperti update konten dan SEO lanjutan.
+                Model hybrid: project-based (Paket Starter/Growth/Scale) + recurring revenue (maintenance bulanan). Profit sharing transparan per SDM. Tanpa pajak = margin flexible untuk negosiasi klien yang lebih kompetitif.
+              </p>
+            </Card>
+            <Card className="p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">🚀 Proposisi Nilai</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Solusi one-stop: design + development + branding + maintenance. Proses cepat karena tim kecil yang gesit. Support berkelanjutan dari PM dedicated. Harga terjangkau tanpa mengorbankan kualitas profesional.
+              </p>
+            </Card>
+            <Card className="p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">👥 Target Pasar</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                UMKM yang butuh go-digital cepat, Profesional/Freelancer yang butuh portfolio online, dan Startup tahap awal yang butuh identitas brand. Fokus pada segmen yang price-sensitive tapi quality-conscious.
+              </p>
+            </Card>
+            <Card className="p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">📢 Strategi Distribusi</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Multi-channel: Social media marketing (Instagram/LinkedIn), portfolio website Brandly, word of mouth dari klien, jaringan kampus & komunitas, dan digital ads. Fokus pada content marketing dan case studies.
+              </p>
+            </Card>
+            <Card className="p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">🤝 Kemitraan Strategis</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Partnership dengan hosting providers, content writers, digital marketing agencies untuk rujukan klien, dan mentor/dosen pembimbing untuk guidance. Ecosystem yang saling mendukung pertumbuhan bisnis.
               </p>
             </Card>
           </div>
@@ -279,66 +300,7 @@ export default function BusinessModelCanvas() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Brandly</h3>
-              <p className="opacity-75">Jasa Pembuatan Website & Branding untuk bisnis Anda</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Layanan</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Website Development
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Branding
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    SEO
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Perusahaan</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Tentang Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Portfolio
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Kontak</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>Email: info@brandly.id</li>
-                <li>Phone: +62 XXX XXXX XXXX</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 pt-8 text-center opacity-75">
-            <p>&copy; 2025 Brandly. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
