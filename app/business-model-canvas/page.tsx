@@ -1,6 +1,7 @@
-import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { ArrowLeft, Users, Zap, Lightbulb, Heart, Target, Rocket, DollarSign, TrendingUp, Layers } from "lucide-react"
+import Link from "next/link"
+import Navbar from "@/components/navbar"
 
 export default function BusinessModelCanvas() {
   const bmc = {
@@ -19,12 +20,12 @@ export default function BusinessModelCanvas() {
       "Konsultasi Kebutuhan Klien",
     ],
     valueProposition: [
-      "Website profesional, modern, & responsif.",
-      "Harga terjangkau dengan sistem paket.",
-      "Solusi 'One-Stop' (Website + Branding).",
-      "Proses konsultasi yang mudah dan cepat.",
-      "Desain unik yang disesuaikan dengan identitas brand klien.",
-      "Layanan maintenance & support.",
+      "Kualitas tinggi: Tim desainer, developer, & PM berpengalaman dalam satu paket.",
+      "Harga kompetitif: Tidak ada pajak (NPWP) = margin lebih besar bisa dinegosiasikan untuk klien.",
+      "Fleksibel & responsif: Personal touch dari tim berpengalaman vs tim besar agensi.",
+      "Solusi lengkap: Design + Development + Branding + Maintenance dalam satu tempat.",
+      "Proses cepat: Koordinasi mudah karena tim kecil yang gesit dan adaptif.",
+      "Support berkelanjutan: Dedicated PM + developer untuk maintenance & improvement.",
     ],
     customerRelationships: [
       "Konsultasi gratis (via WhatsApp/Zoom).",
@@ -39,10 +40,13 @@ export default function BusinessModelCanvas() {
       "Organisasi non-profit/komunitas.",
     ],
     keyResources: [
-      "Sumber Daya Manusia (Tim Kelompok 5: Desainer, Developer, PM).",
-      "Software & Tools (Figma, VS Code, Trello, dll).",
-      "Portofolio Proyek.",
-      "Brand 'Brandly' & Reputasi.",
+      "SDM - UI/UX Designer: 1 orang (design system, prototyping, user experience)",
+      "SDM - Graphic Designer: 1 orang (branding, logo, visual assets, marketing materials)",
+      "SDM - Full-Stack Developer: 1 orang (backend, frontend, database, deployment)",
+      "SDM - Project Manager & Business Consultant: 1 orang (project coordination, client relations, strategy)",
+      "Software & Tools (Figma Pro, Adobe Suite, VS Code, Trello, CMS platform)",
+      "Portofolio Proyek & Case Studies dari klien sebelumnya",
+      "Brand 'Brandly' & Track Record Reputasi",
     ],
     channels: [
       "Media Sosial (Instagram, LinkedIn).",
@@ -52,17 +56,21 @@ export default function BusinessModelCanvas() {
       "Iklan Digital (IG Ads, Google Ads).",
     ],
     costStructure: [
-      "Biaya Software & Langganan (Figma, Trello, Adobe, dll).",
-      "Biaya Infrastruktur (Hosting & Domain).",
-      "Biaya Pemasaran (Iklan digital).",
-      "Biaya Operasional (Internet, Listrik).",
-      "(Jika ada) Biaya freelancer eksternal.",
+      "Biaya SDM Desainer: Rp 1.5-2jt per project + Rp 500rb maintenance/bulan",
+      "Biaya SDM Developer: Rp 2-2.5jt per project + Rp 750rb support teknis/bulan",
+      "Biaya SDM PM & Konsultan: Rp 1-1.5jt per project + Rp 300rb koordinasi/bulan",
+      "Biaya Software & Tools (Figma Pro, Adobe Suite, VS Code, CMS): Rp 2-3jt/bulan",
+      "Biaya Infrastruktur (Hosting website klien & domain): Rp 500rb-1jt per klien/tahun",
+      "Biaya Pemasaran & Promosi (Ads digital, konten): Rp 2-3jt/bulan",
+      "Biaya Operasional (Internet, Listrik, workspace): Rp 1.5-2jt/bulan",
+      "(Opsional) Biaya subkontraktor eksternal: Rp 500rb-1.5jt per project",
     ],
     revenueStreams: [
-      "Biaya Jasa Pembuatan Website (Project-based).",
-      "Biaya Jasa Desain Branding (Logo, Brand Kit).",
-      "Paket Maintenance Bulanan (Subscription).",
-      "Jasa Tambahan (Update konten, SEO).",
+      "Paket Starter (Rp 5-10jt): Landing page + brand kit dasar + basic SEO",
+      "Paket Growth (Rp 10-20jt): Multi-page website + brand guideline + copywriting + analytics",
+      "Paket Scale (Custom >Rp 20jt): Website custom + integrasi pihak ketiga + support prioritas",
+      "Maintenance Bulanan (Rp 1-3jt): Update konten, keamanan, backup, support teknis",
+      "Jasa Tambahan (Pay-per-item): SEO advanced, iklan management, konten creation",
     ],
   }
 
@@ -78,15 +86,16 @@ export default function BusinessModelCanvas() {
     revenueStreams: TrendingUp,
   }
 
-  const BMCCard = ({ title, items, icon: Icon, bgColor, borderColor, textColor }) => (
+  const BMCCard = ({ title, items, icon: Icon, bgColor, borderColor, textColor, number }) => (
     <Card
       className={`p-6 ${bgColor} ${borderColor} relative overflow-hidden group hover:shadow-lg transition-shadow duration-300`}
     >
-      <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-30 transition-opacity">
-        <Icon className="w-8 h-8" />
+      <div className="absolute top-2 right-2 flex items-center gap-1 opacity-15 group-hover:opacity-25 transition-opacity">
+        <Icon className="w-6 h-6" />
+        <span className="text-lg font-bold text-primary">{number}</span>
       </div>
 
-      <h3 className={`text-lg font-bold ${textColor} mb-2`}>{title}</h3>
+      <h3 className={`text-base font-bold ${textColor} mb-3 pr-16`}>{title}</h3>
       <ul className="space-y-2">
         {items.map((item, idx) => (
           <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -101,25 +110,7 @@ export default function BusinessModelCanvas() {
   return (
     <div className="min-h-screen">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">Brandly</div>
-          <div className="flex items-center gap-8">
-            <Link href="/" className="text-foreground hover:text-primary transition">
-              Home
-            </Link>
-            <Link href="/business-model-canvas" className="text-foreground hover:text-primary transition font-semibold">
-              Business Model Canvas
-            </Link>
-            <Link href="/business-planning" className="text-foreground hover:text-primary transition">
-              Business Planning
-            </Link>
-            <Link href="/presentation" className="text-foreground hover:text-primary transition">
-              Presentasi Project
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Header */}
       <section className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-200 text-white py-12">
@@ -136,9 +127,11 @@ export default function BusinessModelCanvas() {
       {/* BMC Grid */}
       <section className="bg-gradient-to-br from-blue-50 via-blue-50 to-gray-50 py-16 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Top Row: Key Partners, Key Activities, Value Proposition, Customer Relationships, Customer Segments */}
+          {/* Main BMC Grid Layout - 5 columns */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-            {/* Key Partners */}
+            {/* Row 1: Key Partners, Key Activities, Value Proposition, Customer Relationships, Customer Segments */}
+            
+            {/* Key Partners (1,1) */}
             <BMCCard
               title="Key Partners"
               items={bmc.keyPartners}
@@ -146,53 +139,20 @@ export default function BusinessModelCanvas() {
               bgColor="bg-white"
               borderColor="border border-blue-200"
               textColor="text-gray-900"
+              number="8"
             />
 
-            {/* Key Activities */}
-            <BMCCard
-              title="Key Activities"
-              items={bmc.keyActivities}
-              icon={iconMap.keyActivities}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
-
-            {/* Value Proposition - Center */}
-            <BMCCard
-              title="Value Propositions"
-              items={bmc.valueProposition}
-              icon={iconMap.valueProposition}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
-
-            {/* Customer Relationships */}
-            <BMCCard
-              title="Customer Relationships"
-              items={bmc.customerRelationships}
-              icon={iconMap.customerRelationships}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
-
-            {/* Customer Segments */}
-            <BMCCard
-              title="Customer Segments"
-              items={bmc.customerSegments}
-              icon={iconMap.customerSegments}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
-          </div>
-
-          {/* Middle Row: Key Resources (spans 2 cols) and Channels (spans 3 cols) */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
-            {/* Key Resources */}
-            <div className="md:col-span-2">
+            {/* Key Activities + Key Resources (1,2 and 2,2) */}
+            <div className="flex flex-col gap-4">
+              <BMCCard
+                title="Key Activities"
+                items={bmc.keyActivities}
+                icon={iconMap.keyActivities}
+                bgColor="bg-white"
+                borderColor="border border-blue-200"
+                textColor="text-gray-900"
+                number="7"
+              />
               <BMCCard
                 title="Key Resources"
                 items={bmc.keyResources}
@@ -200,11 +160,32 @@ export default function BusinessModelCanvas() {
                 bgColor="bg-white"
                 borderColor="border border-blue-200"
                 textColor="text-gray-900"
+                number="6"
               />
             </div>
 
-            {/* Channels */}
-            <div className="md:col-span-3">
+            {/* Value Proposition (1,3 and 2,3) - Center */}
+            <BMCCard
+              title="Value Propositions"
+              items={bmc.valueProposition}
+              icon={iconMap.valueProposition}
+              bgColor="bg-white"
+              borderColor="border border-blue-200"
+              textColor="text-gray-900"
+              number="2"
+            />
+
+            {/* Customer Relationships + Channels (1,4 and 2,4) */}
+            <div className="flex flex-col gap-4">
+              <BMCCard
+                title="Customer Relationships"
+                items={bmc.customerRelationships}
+                icon={iconMap.customerRelationships}
+                bgColor="bg-white"
+                borderColor="border border-blue-200"
+                textColor="text-gray-900"
+                number="4"
+              />
               <BMCCard
                 title="Channels"
                 items={bmc.channels}
@@ -212,31 +193,49 @@ export default function BusinessModelCanvas() {
                 bgColor="bg-white"
                 borderColor="border border-blue-200"
                 textColor="text-gray-900"
+                number="3"
               />
             </div>
+
+            {/* Customer Segments (1,5) */}
+            <BMCCard
+              title="Customer Segments"
+              items={bmc.customerSegments}
+              icon={iconMap.customerSegments}
+              bgColor="bg-white"
+              borderColor="border border-blue-200"
+              textColor="text-gray-900"
+              number="1"
+            />
           </div>
 
-          {/* Bottom Row: Cost Structure (spans 2.5 cols) and Revenue Streams (spans 2.5 cols) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Cost Structure */}
-            <BMCCard
-              title="Cost Structure"
-              items={bmc.costStructure}
-              icon={iconMap.costStructure}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
+          {/* Bottom Row: Cost Structure and Revenue Streams */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {/* Cost Structure (3,1-3) */}
+            <div className="md:col-span-2">
+              <BMCCard
+                title="Cost Structure"
+                items={bmc.costStructure}
+                icon={iconMap.costStructure}
+                bgColor="bg-white"
+                borderColor="border border-blue-200"
+                textColor="text-gray-900"
+                number="9"
+              />
+            </div>
 
-            {/* Revenue Streams */}
-            <BMCCard
-              title="Revenue Streams"
-              items={bmc.revenueStreams}
-              icon={iconMap.revenueStreams}
-              bgColor="bg-white"
-              borderColor="border border-blue-200"
-              textColor="text-gray-900"
-            />
+            {/* Revenue Streams (3,4-5) */}
+            <div className="md:col-span-3">
+              <BMCCard
+                title="Revenue Streams"
+                items={bmc.revenueStreams}
+                icon={iconMap.revenueStreams}
+                bgColor="bg-white"
+                borderColor="border border-blue-200"
+                textColor="text-gray-900"
+                number="5"
+              />
+            </div>
           </div>
         </div>
       </section>

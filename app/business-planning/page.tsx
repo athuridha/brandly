@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -16,6 +15,8 @@ import {
   AlertTriangle,
   CheckCircle2,
 } from "lucide-react"
+import Link from "next/link"
+import Navbar from "@/components/navbar"
 
 export default function BusinessPlanningPage() {
   const pricing = [
@@ -100,25 +101,7 @@ export default function BusinessPlanningPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">Brandly</div>
-          <div className="flex items-center gap-8">
-            <Link href="/" className="text-foreground hover:text-primary transition">
-              Home
-            </Link>
-            <Link href="/business-model-canvas" className="text-foreground hover:text-primary transition">
-              Business Model Canvas
-            </Link>
-            <Link href="/business-planning" className="text-foreground hover:text-primary transition font-semibold">
-              Business Planning
-            </Link>
-            <Link href="/presentation" className="text-foreground hover:text-primary transition">
-              Presentasi Project
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Header */}
       <section className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-200 text-white py-12">

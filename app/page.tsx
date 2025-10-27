@@ -1,34 +1,13 @@
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, Zap, Palette, Code, Smartphone, TrendingUp } from "lucide-react"
+import Navbar from "@/components/navbar"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">Brandly</div>
-          <div className="flex items-center gap-8">
-            <Link href="/" className="text-foreground hover:text-primary transition">
-              Home
-            </Link>
-            <Link href="/business-model-canvas" className="text-foreground hover:text-primary transition">
-              Business Model Canvas
-            </Link>
-            <Link href="/business-planning" className="text-foreground hover:text-primary transition">
-              Business Planning
-            </Link>
-            <Link href="/presentation" className="text-foreground hover:text-primary transition">
-              Presentasi Project
-            </Link>
-            <Button asChild>
-              <a href="#contact">Hubungi Kami</a>
-            </Button>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
