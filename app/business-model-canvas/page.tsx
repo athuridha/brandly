@@ -56,14 +56,11 @@ export default function BusinessModelCanvas() {
       "Iklan Digital (IG Ads, Google Ads).",
     ],
     costStructure: [
-      "Biaya SDM Desainer: Rp 1.5-2jt per project + Rp 500rb maintenance/bulan",
-      "Biaya SDM Developer: Rp 2-2.5jt per project + Rp 750rb support teknis/bulan",
-      "Biaya SDM PM & Konsultan: Rp 1-1.5jt per project + Rp 300rb koordinasi/bulan",
-      "Biaya Software & Tools (Figma Pro, Adobe Suite, VS Code, CMS): Rp 2-3jt/bulan",
-      "Biaya Infrastruktur (Hosting website klien & domain): Rp 500rb-1jt per klien/tahun",
-      "Biaya Pemasaran & Promosi (Ads digital, konten): Rp 2-3jt/bulan",
-      "Biaya Operasional (Internet, Listrik, workspace): Rp 1.5-2jt/bulan",
-      "(Opsional) Biaya subkontraktor eksternal: Rp 500rb-1.5jt per project",
+      "**PAKET STARTER** (Rp 5-10jt): Desainer 20% | Developer 25% | PM 15% | Operasional 40%",
+      "**PAKET GROWTH** (Rp 10-20jt): Desainer 22% | Developer 28% | PM 17% | Operasional 33%",
+      "**PAKET SCALE** (>Rp 20jt): Desainer 24% | Developer 30% | PM 20% | Operasional 26%",
+      "**Maintenance**: 30% SDM teknis | 70% tools & operasional",
+      "**Biaya Tetap**: Software Rp 2-3jt + Marketing Rp 2-3jt + Operasional Rp 1.5-2jt/bulan",
     ],
     revenueStreams: [
       "Paket Starter (Rp 5-10jt): Landing page + brand kit dasar + basic SEO",
@@ -86,26 +83,42 @@ export default function BusinessModelCanvas() {
     revenueStreams: TrendingUp,
   }
 
-  const BMCCard = ({ title, items, icon: Icon, bgColor, borderColor, textColor, number }) => (
-    <Card
-      className={`p-6 ${bgColor} ${borderColor} relative overflow-hidden group hover:shadow-lg transition-shadow duration-300`}
-    >
-      <div className="absolute top-2 right-2 flex items-center gap-1 opacity-15 group-hover:opacity-25 transition-opacity">
-        <Icon className="w-6 h-6" />
-        <span className="text-lg font-bold text-primary">{number}</span>
-      </div>
+  const BMCCard = ({ title, items, icon: Icon, bgColor, borderColor, textColor, number }) => {
+    const renderText = (text) => {
+      const parts = text.split(/(\*\*.*?\*\*)/);
+      return parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return (
+            <strong key={i} className="font-bold">
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      });
+    };
 
-      <h3 className={`text-base font-bold ${textColor} mb-3 pr-16`}>{title}</h3>
-      <ul className="space-y-2">
-        {items.map((item, idx) => (
-          <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-            <span className="text-primary font-bold mt-0.5 flex-shrink-0">•</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </Card>
-  )
+    return (
+      <Card
+        className={`p-6 ${bgColor} ${borderColor} relative overflow-hidden group hover:shadow-lg transition-shadow duration-300`}
+      >
+        <div className="absolute top-2 right-2 flex items-center gap-1 opacity-15 group-hover:opacity-25 transition-opacity">
+          <Icon className="w-6 h-6" />
+          <span className="text-lg font-bold text-primary">{number}</span>
+        </div>
+
+        <h3 className={`text-base font-bold ${textColor} mb-3 pr-16`}>{title}</h3>
+        <ul className="space-y-2">
+          {items.map((item, idx) => (
+            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+              <span className="text-primary font-bold mt-0.5 flex-shrink-0">•</span>
+              <span>{renderText(item)}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    );
+  };
 
   return (
     <div className="min-h-screen">
