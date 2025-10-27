@@ -21,7 +21,7 @@ export default function BusinessPlanningPage() {
   const pricing = [
     {
       name: "Starter",
-      price: "Rp2,5jt - Rp5jt",
+      price: "Rp5jt - Rp10jt",
       features: [
         "Landing page profesional",
         "Brand kit sederhana (logo + warna)",
@@ -31,7 +31,7 @@ export default function BusinessPlanningPage() {
     },
     {
       name: "Growth",
-      price: "Rp6jt - Rp10jt",
+      price: "Rp10jt - Rp20jt",
       features: [
         "Multi-page website",
         "Brand guideline ringkas",
@@ -42,7 +42,7 @@ export default function BusinessPlanningPage() {
     },
     {
       name: "Scale",
-      price: "Custom (di atas Rp10jt)",
+      price: "Custom (di atas Rp20jt)",
       features: [
         "Kebutuhan khusus bisnis",
         "Integrasi pihak ketiga",
