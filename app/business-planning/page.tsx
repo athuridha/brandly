@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import type React from "react"
 import { Card } from "@/components/ui/card"
 import {
   ArrowLeft,
@@ -166,19 +167,19 @@ export default function BusinessPlanningPage() {
   }
 
   // Helper function untuk render bold text dengan **text**
-  const renderText = (text) => {
-    const parts = text.split(/(\*\*.*?\*\*)/);
-    return parts.map((part, i) => {
+  const renderText = (text: string): React.ReactNode[] => {
+    const parts = text.split(/(\*\*.*?\*\*)/)
+    return parts.map((part: string, i: number) => {
       if (part.startsWith("**") && part.endsWith("**")) {
         return (
           <strong key={i} className="font-bold">
             {part.slice(2, -2)}
           </strong>
-        );
+        )
       }
-      return <span key={i}>{part}</span>;
-    });
-  };
+      return <span key={i}>{part}</span>
+    })
+  }
 
   return (
     <div className="min-h-screen bg-background">

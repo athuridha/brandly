@@ -1,12 +1,22 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -16,11 +26,16 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/business-model-canvas", label: "Business Model Canvas" },
     { href: "/business-planning", label: "Business Planning" },
+    { href: "/porter-five-forces", label: "Porter's Five Forces" },
     { href: "/presentation", label: "Presentasi Project" },
   ]
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? "bg-background/50 backdrop-blur border-b border-border/50" 
+        : "bg-background/95 backdrop-blur border-b border-border"
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold text-primary">Brandly</div>
