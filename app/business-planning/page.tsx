@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import type React from "react"
 import { Card } from "@/components/ui/card"
 import {
   ArrowLeft,
@@ -17,85 +18,167 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function BusinessPlanningPage() {
   const pricing = [
     {
       name: "Starter",
-      price: "Rp5jt - Rp10jt",
+      price: "Rp 5-10jt",
       features: [
-        "Landing page profesional",
-        "Brand kit sederhana (logo + warna)",
-        "Integrasi WhatsApp & Form",
-        "Basic SEO",
+        "Landing page + brand kit dasar",
+        "Logo design + color palette",
+        "WhatsApp/contact form integration",
+        "Basic SEO optimization",
+        "1x revision free",
+        "Durasi: 2-3 minggu",
       ],
     },
     {
       name: "Growth",
-      price: "Rp10jt - Rp20jt",
+      price: "Rp 10-20jt",
       features: [
-        "Multi-page website",
-        "Brand guideline ringkas",
-        "Copywriting dasar",
-        "Setup Analytics",
-        "Maintenance 1 bulan",
+        "Multi-page website (5-8 pages)",
+        "Brand guideline lengkap",
+        "Professional copywriting",
+        "Google Analytics setup",
+        "Unlimited revisions (2 minggu)",
+        "1 bulan maintenance gratis",
+        "Durasi: 3-4 minggu",
       ],
     },
     {
       name: "Scale",
-      price: "Custom (di atas Rp20jt)",
+      price: "Custom >Rp 20jt",
       features: [
-        "Kebutuhan khusus bisnis",
-        "Integrasi pihak ketiga",
-        "Komponen kustom",
-        "Support prioritas",
+        "Website fully custom sesuai kebutuhan",
+        "Payment gateway & e-commerce (opsional)",
+        "CRM/database integration",
+        "Advanced SEO & performance optimization",
+        "3 bulan maintenance included",
+        "Priority support 24/7",
+        "Durasi: 4-6 minggu (tergantung scope)",
       ],
     },
   ]
 
   const costs = [
-    "Hosting & Domain",
-    "Langganan tools (Figma, repo, tracker)",
-    "Pemasaran (ads & materi promosi)",
-    "Operasional (internet, listrik)",
-    "(Opsional) Freelancer eksternal",
+    "**Biaya SDM** - Desainer: 20-24% | Developer: 25-30% | PM: 15-20% per paket",
+    "**Biaya Tetap Bulanan** - Software Rp 2-3jt + Marketing Rp 2-3jt + Operasional Rp 1.5-2jt",
+    "**Maintenance** - 30% SDM teknis | 70% tools & operasional",
+    "Integrasi Biaya: Paket Starter 40% operasional | Growth 33% | Scale 26%",
+    "Hosting & Domain per klien: Rp 500rb-1jt/tahun (disupport/dibayar klien)",
   ]
 
   const risks = [
-    { risk: "Prospek lambat / lead kering", mitigation: "Perbanyak kanal, rutin konten, kemitraan" },
-    { risk: "Scope creep proyek", mitigation: "Kontrak jelas, fitur bertahap, change request" },
-    { risk: "Keterlambatan deliverable", mitigation: "Sprint plan, buffer, checklist QA" },
-    { risk: "Biaya tak terduga", mitigation: "Kontrol biaya, paket transparan, review bulanan" },
+    { 
+      risk: "Lead/prospek lambat atau lead kering", 
+      mitigation: "Perbanyak channel marketing, rutin content creation, build partnerships, referral program" 
+    },
+    { 
+      risk: "Scope creep & project overrun", 
+      mitigation: "Kontrak jelas & detailed, milestone-based delivery, formal change request process" 
+    },
+    { 
+      risk: "Keterlambatan deliverable", 
+      mitigation: "Sprint planning, buffer time allocation, QA checklist, weekly progress tracking" 
+    },
+    { 
+      risk: "Biaya tak terduga / cost overrun", 
+      mitigation: "Cost control strict, pricing transparan, monthly budget review, contingency fund" 
+    },
+    { 
+      risk: "Quality issue & client dissatisfaction", 
+      mitigation: "Standardized QA process, design review iterations, post-launch support, feedback loop" 
+    },
+    { 
+      risk: "Tim member attrition / key person risk", 
+      mitigation: "Cross-training, documentation complete, competitive compensation, positive work culture" 
+    },
   ]
 
   const milestones = [
-    { time: "Q1", items: ["Validasi penawaran", "Portofolio 3 proyek", "Landing page live"] },
-    { time: "Q2", items: ["5-8 proyek selesai", "Bangun referral", "Dokumentasi proses"] },
-    { time: "Q3", items: ["Produk paketasi matang", "Retainer 3 klien", "Automasi basic"] },
-    { time: "Q4", items: ["Skalakan pemasaran", "Partnership strategis", "Standardisasi QA"] },
+    { 
+      time: "Q1", 
+      items: [
+        "Validasi pasar & fine-tune pricing",
+        "Buat portfolio 3-5 proyek showcase",
+        "Launch landing page Brandly",
+        "Setup social media marketing strategy",
+      ] 
+    },
+    { 
+      time: "Q2", 
+      items: [
+        "Target 5-8 proyek selesai",
+        "Bangun referral program & partnerships",
+        "Dokumentasi process & SOP standardisasi",
+        "Tracking customer satisfaction & retention",
+      ] 
+    },
+    { 
+      time: "Q3", 
+      items: [
+        "Paketisasi produk matang & siap scale",
+        "Akuisisi 3 klien retainer (recurring revenue)",
+        "Automasi basic (invoice, reporting, scheduling)",
+        "Case study dokumentasi & content marketing",
+      ] 
+    },
+    { 
+      time: "Q4", 
+      items: [
+        "Scale marketing spend (ads, content, partnership)",
+        "Strategic partnership dengan digital agencies",
+        "Standardisasi QA & delivery excellence",
+        "Plan ekspansi tahun depan (team atau layanan baru)",
+      ] 
+    },
   ]
 
   const swot = {
     strengths: [
-      "Tim kecil gesit (desain + dev)",
-      "One-stop (website + branding)",
-      "Harga kompetitif & transparan",
+      "Tim 4 orang berpengalaman (Designer, Developer, PM, Graphic Designer)",
+      "Solusi one-stop: design + development + branding + maintenance",
+      "Harga kompetitif (tanpa pajak = flexible margin)",
+      "Proses cepat karena tim kecil yang gesit",
+      "Profit sharing transparan untuk SDM",
     ],
     weaknesses: [
-      "Brand awareness awal rendah",
-      "Resource terbatas untuk proyek besar",
-      "Portofolio masih berkembang",
+      "Brand awareness masih rendah (new player)",
+      "Resource terbatas untuk proyek besar/kompleks",
+      "Portofolio & track record masih berkembang",
+      "Belum memiliki office infrastructure formal",
     ],
     opportunities: [
-      "UMKM semakin butuh digitalisasi",
-      "Permintaan landing page naik",
-      "Kemitraan dengan komunitas kampus/UMKM",
+      "UMKM semakin butuh digitalisasi (pasar besar)",
+      "Permintaan website & branding terus naik post-pandemi",
+      "Kemitraan dengan komunitas kampus & UMKM associations",
+      "Retainer model untuk recurring revenue stable",
+      "Ekspansi ke layanan digital marketing & SEO",
     ],
     threats: [
-      "Persaingan agensi/freelancer",
-      "Perubahan tren/algoritma pemasaran",
-      "Sensitivitas harga pasar",
+      "Persaingan agensi web agency established & freelancer individual",
+      "Price war dari kompetitor dengan business model serupa",
+      "Perubahan tren design & teknologi yang cepat",
+      "Client churn jika service quality tidak konsisten",
+      "Economic downturn = pengurangan budget digital klien",
     ],
+  }
+
+  // Helper function untuk render bold text dengan **text**
+  const renderText = (text: string): React.ReactNode[] => {
+    const parts = text.split(/(\*\*.*?\*\*)/)
+    return parts.map((part: string, i: number) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={i} className="font-bold">
+            {part.slice(2, -2)}
+          </strong>
+        )
+      }
+      return <span key={i}>{part}</span>
+    })
   }
 
   return (
@@ -231,7 +314,7 @@ export default function BusinessPlanningPage() {
             </div>
             <ul className="grid md:grid-cols-2 gap-x-6 text-muted-foreground">
               {costs.map((c, i) => (
-                <li key={i} className="mb-2">• {c}</li>
+                <li key={i} className="mb-2">• {renderText(c)}</li>
               ))}
             </ul>
           </Card>
@@ -316,66 +399,7 @@ export default function BusinessPlanningPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Brandly</h3>
-              <p className="opacity-75">Jasa Pembuatan Website & Branding untuk bisnis Anda</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Layanan</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Website Development
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Branding
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    SEO
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Perusahaan</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Tentang Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Portfolio
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:opacity-100">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Kontak</h4>
-              <ul className="space-y-2 opacity-75">
-                <li>Email: info@brandly.id</li>
-                <li>Phone: +62 XXX XXXX XXXX</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 pt-8 text-center opacity-75">
-            <p>&copy; 2025 Brandly. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
