@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import ThemeToggle from "@/components/theme-toggle"
 import { Menu, X } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,13 +26,26 @@ export default function Navbar() {
     setIsOpen(!isOpen)
   }
 
-  const navLinks = [
+  // Default links (non-task pages)
+  const defaultLinks = [
     { href: "/", label: "Home" },
-    { href: "/business-model-canvas", label: "Business Model Canvas" },
-    { href: "/business-planning", label: "Business Planning" },
-    { href: "/porter-five-forces", label: "Porter's Five Forces" },
-    { href: "/presentation", label: "Presentasi Project" },
-  ]
+    { href: "/#services", label: "Layanan" },
+    { href: "/#portfolio", label: "Portfolio" },
+    { href: "/#pricing", label: "Harga" },
+    { href: "/task", label: "Tugas Kuliah" },
+  ] as const
+
+  // Task-specific links (replace navbar items while on /task pages)
+  const taskLinks = [
+    { href: "/", label: "Home" },
+    { href: "/task/business-planning", label: "Business Planning" },
+    { href: "/task/business-model-canvas", label: "Business Model Canvas" },
+    { href: "/task/porter-five-forces", label: "Porter Five Forces" },
+    { href: "/task/presentation", label: "Presentation" },
+  ] as const
+
+  const isTaskPage = pathname?.startsWith("/task")
+  const navLinks = isTaskPage ? taskLinks : defaultLinks
 
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -38,10 +55,19 @@ export default function Navbar() {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold text-primary">Brandly</div>
+        <Link href="/" aria-label="Brandly Home" className="flex items-center gap-2">
+          <Image
+            src="/brandly.png"
+            alt="Brandly logo"
+            width={140}
+            height={32}
+            className="h-8 w-auto object-contain"
+            priority
+          />
+        </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -51,24 +77,29 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Button asChild>
+          
+          <ThemeToggle />
+          <Button asChild className="ml-2">
             <a href="#contact">Hubungi Kami</a>
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-secondary transition"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile actions: Theme toggle + burger */}
+        <div className="md:hidden flex items-center gap-1">
+          <ThemeToggle variant="outline" size="icon" className="rounded-lg" />
+          <button
+            className="p-2 rounded-lg hover:bg-secondary transition"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="md:hidden bg-background border-t border-border">
+        <div className="md:hidden bg-background/70 backdrop-blur border-t border-border/60 shadow-lg">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
               <Link
@@ -80,6 +111,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            
             <Button asChild className="w-full">
               <a href="#contact" onClick={() => setIsOpen(false)}>
                 Hubungi Kami
