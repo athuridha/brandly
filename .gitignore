@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/.pnp
+.pnp.*
+
+# testing
+/coverage
 
 # next.js
 /.next/
@@ -9,15 +14,21 @@
 
 # production
 /build
+/dist
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files
-.env*
+# local env files
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
@@ -25,3 +36,36 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# turbopack
+.turbo
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# Lock files (pilih salah satu sesuai package manager)
+# Uncomment jika pakai npm
+# package-lock.json
+# Uncomment jika pakai yarn
+# yarn.lock
+# Keep pnpm-lock.yaml jika pakai pnpm
