@@ -292,11 +292,14 @@ export default function Home() {
             Hubungi kami hari ini untuk konsultasi gratis dan penawaran khusus untuk bisnis Anda
           </p>
           <Button
+            asChild
             size="lg"
             variant="secondary"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-lg hover:shadow-xl transition-transform duration-300 hover:-translate-y-0.5"
           >
-            Hubungi Kami Sekarang
+            <a href="mailto:gerranthiya@e-digital.space" aria-label="Hubungi kami via email">
+              Hubungi Kami Sekarang
+            </a>
           </Button>
         </div>
       </section>
@@ -307,3 +310,4 @@ export default function Home() {
     </div>
   )
 }
+
