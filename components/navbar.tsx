@@ -42,6 +42,7 @@ export default function Navbar() {
     { href: "/task/business-model-canvas", label: "Business Model Canvas" },
     { href: "/task/porter-five-forces", label: "Porter Five Forces" },
     { href: "/task/presentation", label: "Presentation" },
+    { href: "/task/prospek-5-tahun", label: "Prospek 5 Tahun" },
   ] as const
 
   const isTaskPage = pathname?.startsWith("/task")
