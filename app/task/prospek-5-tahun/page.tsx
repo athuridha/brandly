@@ -4,12 +4,14 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Plus, Trash2, TrendingUp, Calendar, BarChart3, AlertCircle, Lightbulb, CheckCircle2, MapPin, Users, DollarSign, Target, TrendingDown } from "lucide-react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 
 export default function ProspekBrandly() {
   const [activeTab, setActiveTab] = useState<"summary" | "yearly" | "monthly" | "segments" | "metrics" | "sources" | "gtm" | "sheets">("summary")
   const [expandedSegment, setExpandedSegment] = useState<string | null>(null)
+  const [selectedYear, setSelectedYear] = useState<number>(2025)
 
   // Data per tahun (skenario moderat)
   const yearlyData = [
@@ -61,6 +63,16 @@ export default function ProspekBrandly() {
       pendapatanMin: "1,2 M",
       pendapatanMax: "2 M",
     },
+  ]
+
+  // Data for Chart (Normalized to Millions)
+  const chartData = [
+    { year: 2025, min: 200, max: 400 },
+    { year: 2026, min: 400, max: 600 },
+    { year: 2027, min: 600, max: 1200 },
+    { year: 2028, min: 800, max: 1500 },
+    { year: 2029, min: 1000, max: 1800 },
+    { year: 2030, min: 1200, max: 2000 },
   ]
 
   // Data per bulan
@@ -300,7 +312,7 @@ export default function ProspekBrandly() {
 
   return (
     <div className="min-h-screen bg-background">
-        <Navbar />
+      <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -328,11 +340,10 @@ export default function ProspekBrandly() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 font-medium transition-colors flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? "border-b-2 border-primary text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`px-4 py-2 font-medium transition-colors flex items-center gap-2 ${activeTab === tab.id
+                  ? "border-b-2 border-primary text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 {tab.label}
@@ -344,6 +355,43 @@ export default function ProspekBrandly() {
         {/* RINGKASAN / SUMMARY */}
         {activeTab === "summary" && (
           <div className="space-y-6">
+            {/* Chart Section */}
+            <Card className="p-6 border-border/60 bg-card/80 backdrop-blur">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground">Proyeksi Pendapatan Tahunan</h3>
+                  <p className="text-sm text-muted-foreground">Estimasi pendapatan minimum dan maksimum (Dalam Juta Rupiah)</p>
+                </div>
+                <BarChart3 className="w-5 h-5 text-primary" />
+              </div>
+              <div className="h-[400px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorMin" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                      </linearGradient>
+                      <linearGradient id="colorMax" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="year" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `Rp${value}jt`} />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333" opacity={0.2} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                      formatter={(value: number) => [`Rp ${value} Juta`, 'Pendapatan']}
+                    />
+                    <Legend />
+                    <Area type="monotone" dataKey="max" name="Pendapatan Max" stroke="#10b981" fillOpacity={1} fill="url(#colorMax)" />
+                    <Area type="monotone" dataKey="min" name="Pendapatan Min" stroke="#3b82f6" fillOpacity={1} fill="url(#colorMin)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+
             {/* Skenario Perbandingan */}
             <Card className="overflow-hidden border-border/60 bg-card/80 backdrop-blur">
               <div className="overflow-x-auto">
@@ -360,9 +408,8 @@ export default function ProspekBrandly() {
                     {scenarios.map((s, i) => (
                       <tr
                         key={i}
-                        className={`border-b border-border ${
-                          s.name === "Moderat" ? "bg-primary/5" : "hover:bg-secondary/30"
-                        }`}
+                        className={`border-b border-border ${s.name === "Moderat" ? "bg-primary/5" : "hover:bg-secondary/30"
+                          }`}
                       >
                         <td className="px-4 py-3 font-medium text-foreground">{s.name}</td>
                         <td className="px-4 py-3 text-center text-muted-foreground">{s.share}</td>
@@ -480,7 +527,7 @@ export default function ProspekBrandly() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     {strategy.tactics.map((tactic, i) => (
                       <div key={i} className="flex gap-2 text-sm text-muted-foreground">
@@ -810,59 +857,73 @@ export default function ProspekBrandly() {
         {/* PER BULAN */}
         {activeTab === "monthly" && (
           <div className="space-y-8">
-            {yearlyData.map((year) => (
-              <div key={year.tahun}>
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar className="w-6 h-6 text-primary" />
-                  <h3 className="text-2xl font-bold text-foreground">{year.tahun}</h3>
-                </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-6 h-6 text-primary" />
+                <h3 className="text-2xl font-bold text-foreground">Detail Bulanan</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-muted-foreground">Pilih Tahun:</span>
+                <select
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(Number(e.target.value))}
+                  className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                >
+                  {yearlyData.map((year) => (
+                    <option key={year.tahun} value={year.tahun}>
+                      {year.tahun}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-                {/* Desktop table view */}
-                <div className="hidden md:block">
-                  <Card className="overflow-hidden border-border/60 bg-card/80 backdrop-blur">
-                    <div className="overflow-x-auto">
-                      <table className="w-full border-collapse text-sm">
-                        <thead>
-                          <tr className="bg-primary/10 border-b border-border">
-                            <th className="px-4 py-3 text-left font-semibold text-foreground w-32">Bulan</th>
-                            <th className="px-4 py-3 text-center font-semibold text-foreground">Klien</th>
-                            <th className="px-4 py-3 text-center font-semibold text-foreground">Pendapatan</th>
+            <div>
+              {/* Desktop table view */}
+              <div className="hidden md:block">
+                <Card className="overflow-hidden border-border/60 bg-card/80 backdrop-blur">
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-primary/10 border-b border-border">
+                          <th className="px-4 py-3 text-left font-semibold text-foreground w-32">Bulan</th>
+                          <th className="px-4 py-3 text-center font-semibold text-foreground">Klien</th>
+                          <th className="px-4 py-3 text-center font-semibold text-foreground">Pendapatan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {monthlyData[selectedYear]?.map((month, i) => (
+                          <tr key={i} className="border-b border-border hover:bg-secondary/30">
+                            <td className="px-4 py-3 font-medium text-foreground">{month.bulan}</td>
+                            <td className="px-4 py-3 text-center text-muted-foreground">
+                              {month.klienMin}–{month.klienMax}
+                            </td>
+                            <td className="px-4 py-3 text-center font-semibold text-primary">
+                              {month.pendapatanMin} – {month.pendapatanMax}
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {monthlyData[year.tahun]?.map((month, i) => (
-                            <tr key={i} className="border-b border-border hover:bg-secondary/30">
-                              <td className="px-4 py-3 font-medium text-foreground">{month.bulan}</td>
-                              <td className="px-4 py-3 text-center text-muted-foreground">
-                                {month.klienMin}–{month.klienMax}
-                              </td>
-                              <td className="px-4 py-3 text-center font-semibold text-primary">
-                                {month.pendapatanMin} – {month.pendapatanMax}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Mobile card view */}
+              <div className="md:hidden space-y-2">
+                {monthlyData[selectedYear]?.map((month, i) => (
+                  <Card key={i} className="p-3 bg-card/80 border-border/60 text-sm">
+                    <div className="space-y-1">
+                      <p className="font-semibold text-foreground">{month.bulan}</p>
+                      <div className="flex justify-between text-xs">
+                        <span className="text-muted-foreground">Klien: {month.klienMin}–{month.klienMax}</span>
+                        <span className="text-primary font-semibold">{month.pendapatanMin}–{month.pendapatanMax}</span>
+                      </div>
                     </div>
                   </Card>
-                </div>
-
-                {/* Mobile card view */}
-                <div className="md:hidden space-y-2">
-                  {monthlyData[year.tahun]?.map((month, i) => (
-                    <Card key={i} className="p-3 bg-card/80 border-border/60 text-sm">
-                      <div className="space-y-1">
-                        <p className="font-semibold text-foreground">{month.bulan}</p>
-                        <div className="flex justify-between text-xs">
-                          <span className="text-muted-foreground">Klien: {month.klienMin}–{month.klienMax}</span>
-                          <span className="text-primary font-semibold">{month.pendapatanMin}–{month.pendapatanMax}</span>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         )}
 

@@ -1,11 +1,13 @@
+import { Suspense } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowRight, Zap, Palette, Code, Smartphone, TrendingUp, CheckCircle2, Star, Clock, Users } from "lucide-react"
+import { ArrowRight, Zap, Palette, Code, Smartphone, TrendingUp, CheckCircle2, Star, Clock, Users, Send } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import MobileCTA from "@/components/mobile-cta"
 import Link from "next/link"
 import Image from "next/image"
+import OrderForm from "@/components/order-form"
 
 export default function Home() {
   const services = [
@@ -61,7 +63,7 @@ export default function Home() {
             </div>
             {/* Quick benefits (mobile chips) */}
             <div className="md:hidden -mx-1 mb-6 flex items-center gap-2 overflow-x-auto">
-              {[{icon: Smartphone, label: 'Mobile-first'}, {icon: Clock, label: 'Cepat'}, {icon: Users, label: 'Support 24/7'}, {icon: Zap, label: 'Modern UI'}].map((c, i) => (
+              {[{ icon: Smartphone, label: 'Mobile-first' }, { icon: Clock, label: 'Cepat' }, { icon: Users, label: 'Support 24/7' }, { icon: Zap, label: 'Modern UI' }].map((c, i) => (
                 <span key={i} className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground/80">
                   <c.icon className="w-3.5 h-3.5 text-primary" />{c.label}
                 </span>
@@ -247,7 +249,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <Button className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90' : ''}`} variant={plan.popular ? 'default' : 'outline'} asChild>
-                  <a href="#contact">Pilih Paket</a>
+                  <a href={`/order?plan=${plan.name.toLowerCase()}`}>Pilih Paket</a>
                 </Button>
               </Card>
             ))}
@@ -284,29 +286,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="contact" className="bg-primary text-primary-foreground py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Siap Memulai Perjalanan Digital Anda?</h2>
-          <p className="text-lg mb-8 opacity-90">
-            Hubungi kami hari ini untuk konsultasi gratis dan penawaran khusus untuk bisnis Anda
-          </p>
-          <Button
-            asChild
-            size="lg"
-            variant="secondary"
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-lg hover:shadow-xl transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            <a href="mailto:gerranthiya@e-digital.space" aria-label="Hubungi kami via email">
-              Hubungi Kami Sekarang
-            </a>
-          </Button>
+      {/* Contact / Order Section */}
+      <section id="contact" className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 -z-10" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <Send className="w-4 h-4" />
+                <span>Hubungi Kami</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Siap Memulai Perjalanan Digital Anda?
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Konsultasikan ide Anda bersama kami. Kami akan membantu merumuskan strategi terbaik untuk pertumbuhan bisnis Anda.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Smartphone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">WhatsApp</div>
+                    <div className="text-muted-foreground">+62 812-3456-7890</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Users className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">Email</div>
+                    <div className="text-muted-foreground">hello@brandly.com</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">Jam Operasional</div>
+                    <div className="text-muted-foreground">Senin - Jumat, 09:00 - 17:00</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -top-10 -right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-10" />
+              <Suspense fallback={<div className="p-8 text-center">Loading form...</div>}>
+                <OrderForm />
+              </Suspense>
+            </div>
+          </div>
         </div>
       </section>
 
-  {/* Footer */}
-  <MobileCTA />
-  <Footer />
+      {/* Footer */}
+      <MobileCTA />
+      <Footer />
     </div>
   )
 }
