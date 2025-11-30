@@ -6,12 +6,10 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/theme-toggle"
 import { Menu, X } from "lucide-react"
-import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,34 +24,18 @@ export default function Navbar() {
     setIsOpen(!isOpen)
   }
 
-  // Default links (non-task pages)
-  const defaultLinks = [
+  const navLinks = [
     { href: "/", label: "Home" },
     { href: "/#services", label: "Layanan" },
     { href: "/#portfolio", label: "Portfolio" },
     { href: "/#pricing", label: "Harga" },
-    { href: "/task", label: "Tugas Kuliah" },
   ] as const
-
-  // Task-specific links (replace navbar items while on /task pages)
-  const taskLinks = [
-    { href: "/", label: "Home" },
-    { href: "/task/business-planning", label: "Business Planning" },
-    { href: "/task/business-model-canvas", label: "Business Model Canvas" },
-    { href: "/task/porter-five-forces", label: "Porter Five Forces" },
-    { href: "/task/presentation", label: "Presentation" },
-    { href: "/task/prospek-5-tahun", label: "Prospek 5 Tahun" },
-  ] as const
-
-  const isTaskPage = pathname?.startsWith("/task")
-  const navLinks = isTaskPage ? taskLinks : defaultLinks
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? "bg-background/50 backdrop-blur border-b border-border/50" 
-        : "bg-background/95 backdrop-blur border-b border-border"
-    }`}>
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
+      ? "bg-background/50 backdrop-blur border-b border-border/50"
+      : "bg-background/95 backdrop-blur border-b border-border"
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Brandly Home" className="flex items-center gap-2">
@@ -78,7 +60,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          
+
           <ThemeToggle />
           <Button asChild className="ml-2">
             <a href="#contact">Hubungi Kami</a>
@@ -112,7 +94,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            
+
             <Button asChild className="w-full">
               <a href="#contact" onClick={() => setIsOpen(false)}>
                 Hubungi Kami

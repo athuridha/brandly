@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { CheckCircle2, Loader2, Send } from "lucide-react"
+import { supabase } from "@/lib/supabase"
 
 export default function OrderForm() {
     const searchParams = useSearchParams()
@@ -43,16 +44,43 @@ export default function OrderForm() {
         }
     }, [searchParams])
 
+
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         setIsLoading(true)
 
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            const formData = {
+                name: (document.getElementById("name") as HTMLInputElement).value,
+                email: (document.getElementById("email") as HTMLInputElement).value,
+                whatsapp: (document.getElementById("whatsapp") as HTMLInputElement).value,
+                company: (document.getElementById("company") as HTMLInputElement).value,
+                website: (document.getElementById("website") as HTMLInputElement).value || null,
+                service,
+                budget,
+                timeline: (document.getElementById("timeline") as HTMLSelectElement).value,
+                payment_method: paymentMethod,
+                message,
+                status: "pending" as const
+            }
+
+            const { data, error } = await supabase
+                .from('orders')
+                .insert([formData])
+                .select()
+
+            if (error) throw error
+
+            console.log('Order created:', data)
             setIsLoading(false)
             setIsSuccess(true)
-        }, 1500)
+        } catch (error) {
+            console.error('Error submitting order:', error)
+            alert('Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.')
+            setIsLoading(false)
+        }
     }
+
 
     if (isSuccess) {
         return (
