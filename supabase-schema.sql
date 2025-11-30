@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS orders (
   timeline TEXT NOT NULL,
   payment_method TEXT,
   message TEXT,
+  notes TEXT,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'contacted', 'completed'))
 );
 
